@@ -72,7 +72,7 @@ light.buttonPress()
 light.buttonPress()
 ```
 
-buttonPress 메서드가 매우 복잡해집니다. 머 어찌저찌 해당 코드를 이용하여 프로젝트를 진행하던 중.... 지나가던 기획자가 `저.... 버튼 하나를 이용하여 전원을 제어하다보니 버튼을 계속 눌러야하는 점이 불편해서 상태에 따른 버튼을 독립적으로 만들어 주시면 좋을 것 같아요`라는 말을 했다고 치겠습니다. 
+ buttonPress 메서드가 매우 복잡해집니다. 머 어찌저찌 해당 코드를 이용하여 프로젝트를 진행하던 중.... 지나가던 기획자가 `저.... 버튼 하나를 이용하여 전원을 제어하다보니 버튼을 계속 눌러야하는 점이 불편해서 상태에 따른 버튼을 독립적으로 만들어 주시면 좋을 것 같아요`라는 말을 했다고 치겠습니다. 
 
 여기서 한가지 생각할 점은 각 상태에 따라서 다른 상태의 버튼또는 해당상태의 버튼을 누르면 다음과 같습니다.
 
@@ -99,6 +99,10 @@ SLEEP 상태일 때
 
 상태패턴은 각 상태에 따라 클래스를 구현합니다. 단, 동일한 인터페이스를 가져야 합니다.
 
+## UML
+
+[image:2AB2E6B7-8ED2-4186-9A51-0AA60FC050AC-1650-000001A6BA7D856B/image.png]
+
 ## interface
 
 interface는 상태가 동작할 기능들에 대한 기능리스트 입니다.
@@ -115,6 +119,7 @@ class StateInterface {
 ## state
 
 state는 해당 상태에서의 실제 로직을 포함합니다.
+
 ```javascript
 class OnState extends StateInterface {
 	getInstance () {
@@ -154,9 +159,9 @@ const factory = {
 }
 ```
 
- 상태패턴에 대한 구현을 완료했습니다. 여기서 factory는 OnState와 OffState의 객체를 싱글톤 형태로 사용하기 위함입니다. 굳이 factory 변수로 관리하지 않더라도 OnState와 OffState 내부에서도 구현가능합니다.
+ 상태패턴에 대한 구현을 완료했습니다. 여기서 factory는 OnState와 OffState 객체를 싱글톤 형태로 사용하기 위함입니다. 굳이 factory 변수로 관리하지 않더라도 OnState와 OffState 내부에서도 구현가능합니다.
 
-이제 해당 구현체를 이용하여 Light 클래스를 구현해보곘습니다.
+ 해당 구현체를 이용하여 Light 클래스를 구현해보곘습니다.
 
 ## 활용
 
@@ -191,12 +196,12 @@ light.offBtnPress()
 light.onBtnPress()
 ```
 
-Light 클래스는 StateInterface를 상속받는 OnState와 OffState 두 가지 상태 객체를 가지고 있을 수 있습니다.  해당 코드에서는 두 가지의 상태를 갖지만 기획에 따라 더 많은 상태를 가질 수 있게 됩니다.  
+ Light 클래스는 StateInterface를 상속받는 OnState와 OffState 처럼 두 가지 이상의 상태 객체를 가질 수 있습니다.  해당 코드에서는 두 가지의 상태를 갖지만 기획에 따라 더 많은 상태를 가질 수 있게 됩니다.  
 
- 코드가 좀 더 늘어나긴 했지만 로직적으로 매우 심플합니다. 상태 객체를 통해 상태를 분리하였고 해당 상태에서 액션을 추상화 했기 때문입니다.
+ 코드는 늘어났지만 로직은 심플합니다. 상태객체는 분리한 상태의 액션을 추상화 했기 때문입니다.
 
- 여기서 중요한 점은, 구현체인 Light 클래스의 `this.state`는 해당 객체의 상태를 의미합니다.  즉, 해당 객체의 상태에 따라 다른 상태 객체를 가지고 있습니다. 상태들이 인터페이스를 통일해야 하는 이유는 어떤 상황에서도 메서드 호출이 가능하기 때문입니다. offBtnPress 버튼은 `on/off` 상태 모두(`light.OnBtnPress()`, `light.OffBtnPress()`) 호출 가능하고, 해당 기능은 호출된 상태객체의 메서드(`this.state.on(this)`, `this.state.off(this)`)에서 로직을 포함합니다. 호출된 메서드는 클래스 자체가 상태를 의미하기 때문에상태 정보를 별도로 저장하지 않습니다.
+ 여기서 중요한 점은, 구현체인 Light 클래스의 `this.state`는 해당 객체의 상태를 의미합니다.  즉, 해당 객체의 상태에 따라 다른 상태 객체를 가지고 있습니다. 상태들이 인터페이스를 통일하는 이유는 어떤 상황에서도 메서드 호출이 가능하기 때문입니다. offBtnPress 버튼은 `on/off` 상태 모두(`light.onBtnPress()`, `light.offBtnPress()`) 호출 가능하고, 해당 기능은 호출된 상태객체의 메서드(`this.state.on(this)`, `this.state.off(this)`)에서 로직을 포함합니다. 호출된 메서드는 클래스 자체가 상태를 의미하기 때문에상태 정보를 별도로 저장하지 않습니다.
 
 ## 과제.
-    1. OnState, OffState를 factory 변수 형태로 하지 않고 singleton 형태로 바꿔보기
-    2. 크롤러를 상태패턴을 이용하여 구현해보기
+	 1. OnState, OffState를 factory 변수 형태로 하지 않고 singleton 형태로 바꿔보기
+	 2. 크롤러를 상태패턴을 이용하여 구현해보기
