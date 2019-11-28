@@ -197,5 +197,6 @@ Light 클래스는 StateInterface를 상속받는 OnState와 OffState 두 가지
 
  여기서 중요한 점은, 구현체인 Light 클래스의 `this.state`는 해당 객체의 상태를 의미합니다.  즉, 해당 객체의 상태에 따라 다른 상태 객체를 가지고 있습니다. 상태들이 인터페이스를 통일해야 하는 이유는 어떤 상황에서도 메서드 호출이 가능하기 때문입니다. offBtnPress 버튼은 `on/off` 상태 모두(`light.OnBtnPress()`, `light.OffBtnPress()`) 호출 가능하고, 해당 기능은 호출된 상태객체의 메서드(`this.state.on(this)`, `this.state.off(this)`)에서 로직을 포함합니다. 호출된 메서드는 클래스 자체가 상태를 의미하기 때문에상태 정보를 별도로 저장하지 않습니다.
 
-과제.
- OnState, OffState를 factory 변수 형태로 하지 않고 singleton 형태로 바꿔보기
+## 과제.
+    1. OnState, OffState를 factory 변수 형태로 하지 않고 singleton 형태로 바꿔보기
+    2. 크롤러를 상태패턴을 이용하여 구현해보기
