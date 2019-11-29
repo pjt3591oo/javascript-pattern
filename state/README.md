@@ -11,7 +11,8 @@ state pattern은 상태에 따른 액션을 효율적으로 관리하기 위한 
  간단한 코드로 상태패턴의 필요성을 알아보겠습니다.
 
 ```javascript
-// sample 1
+// app.js
+
 class Light {
 	constructor () {
 		this.state = true;
@@ -38,6 +39,8 @@ light.buttonPress()
  앞의 코드에서 `on/off`의 상태에서 `sleep` 모드를 추가해보겠습니다.
 
 ```javascript
+// app.js
+
 class Light {
 	constructor () {
 		Light.OFF = 1;
@@ -108,6 +111,8 @@ SLEEP 상태일 때
 interface는 상태가 동작할 기능들에 대한 기능리스트 입니다.
 
 ```javascript
+// app.js
+
 class StateInterface {
 	on () {}
 	off () {}
@@ -121,6 +126,8 @@ class StateInterface {
 state는 해당 상태에서의 실제 로직을 포함합니다.
 
 ```javascript
+// app.js
+
 class OnState extends StateInterface {
 	getInstance () {
 		return factory.ON
@@ -166,6 +173,8 @@ const factory = {
 ## 활용
 
 ```javascript
+// app.js
+
 class Light {
 	constructor () {
 		this.state = factory.ON.getInstance()
@@ -205,3 +214,107 @@ light.onBtnPress()
 ## 과제.
 	 1. OnState, OffState를 factory 변수 형태로 하지 않고 singleton 형태로 바꿔보기
 	 2. 크롤러를 상태패턴을 이용하여 구현해보기
+
+
+--- 
+
+## 과제해답
+
+1. 상태객체에서 singleton 형태로 구현
+
+```javascript
+// singletonState.js
+
+class StateInterface {
+  on () {}
+  off () {}
+}
+
+class OnState extends StateInterface {
+  constructor() {
+    super()
+    this.stateName = 'ON'
+  }
+  
+  static getInstance () {
+    OnState.instance = OnState.instance ? OnState.instance : new OnState()
+    return OnState.instance
+  }
+
+  on (light) {
+    light.setState(OnState.getInstance())
+    console.log('... 동작하지 않음')
+  }
+
+  off (light) {
+    light.setState(OffState.getInstance())
+    console.log('전원 off')
+  }
+}
+
+class OffState extends StateInterface{
+  
+  constructor() {
+    super()
+    this.stateName = 'OFF'
+  }
+  
+  static getInstance () {
+    OffState.instance = OffState.instance ? OffState.instance : new OffState()
+    return OffState.instance
+  }
+
+  on (light) {
+    light.setState(OnState.getInstance())
+    console.log('전원 on')
+  }
+
+  off (light) {
+    light.setState(OffState.getInstance())
+    console.log('... 동작하지 않음')
+  }
+}
+
+class Light {
+  constructor () {
+    this.state = OffState.getInstance()
+  }
+
+  showState() {
+    console.log(`current state: ${this.state.stateName} \n`)
+  }
+
+  setState (state) {
+    this.state = state
+  }
+
+  onButtonPress () {
+    this.state.on(this)
+  }
+
+  offButtonPress () {
+    this.state.off(this)
+  }
+}
+
+let l = new Light()
+l.showState()
+
+l.onButtonPress()
+l.showState()
+
+l.offButtonPress()
+l.showState()
+
+l.offButtonPress()
+l.showState()
+
+l.onButtonPress()
+l.showState()
+
+l.onButtonPress()
+l.showState()
+
+l.onButtonPress()
+l.showState()
+```
