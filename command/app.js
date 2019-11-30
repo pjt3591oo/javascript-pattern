@@ -14,23 +14,48 @@ class Light {
   }
 
   press () {
-    console.log(`${this.status? 'on': 'off'}`)
+    console.log(`${this.status? 'light on': 'light off'}`)
     this.status = !this.status
   }
 
 }
 
-class LightOnCommand extends Command{
+class Engine {
+  constructor () {
+    this.status = false
+  }
+
+  press () {
+    console.log(`${this.status? 'engine on': 'engine off'}`)
+    this.status = !this.status
+  }
+}
+
+class LightCommand extends Command{
   constructor() {
     super()
   }
-  LightOnCommand (light) {
+  lightCommand (light) {
     this.light = light
     console.log(light.press)
   }
 
   excute () {
     this.light.press()
+  }
+}
+
+class EngineCommand extends Command {
+  constructor () {
+    super()
+  }
+
+  engineCommand (engine) {
+    this.engine = engine
+  }
+
+  excute () {
+    this.engine.press()
   }
 }
 
@@ -48,18 +73,22 @@ class SimpleRemoteControl {
 }
 
 const remote = new SimpleRemoteControl()
+
 const light = new Light()
-const lightOn = new LightOnCommand()
+const lightCommand = new LightCommand()
 
-lightOn.LightOnCommand(light)
+lightCommand.lightCommand(light)
+remote.setCommand(lightCommand)
 
-remote.setCommand(lightOn)
+remote.buttonWasPressed()
+remote.buttonWasPressed()
+remote.buttonWasPressed()
 
-remote.buttonWasPressed()
-remote.buttonWasPressed()
-remote.buttonWasPressed()
-remote.buttonWasPressed()
-remote.buttonWasPressed()
+const engine = new Engine()
+const engineCommand = new EngineCommand()
+
+engineCommand.engineCommand(engine)
+remote.setCommand(engineCommand)
 remote.buttonWasPressed()
 remote.buttonWasPressed()
 remote.buttonWasPressed()
