@@ -46,7 +46,7 @@
 
 ### 3. Behavioral Design Patterns (행위 패턴)
 
-![](/Users/bagjeongtae/Desktop/design pattern/이미지/DesignPattern/Design-Patterns.png)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/Design-Patterns.png?raw=true)
 
 여기서는 모든 패턴을 다루지 않고 JavaScript에 특화된 패턴을 다룬다.
 
@@ -105,7 +105,7 @@ newPerson.say(); // [NEW] Output - “John is 20years old!”
 
 * 구조
 
-![](/Users/bagjeongtae/Desktop/design pattern/이미지/DesignPattern/create/Factory-Pattern.png)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/create/Factory-Pattern.png?raw=true)
 
 Factory 클래스에 의해 생성하는 객체는 동일한 인터페이스를 가져야 함
 
@@ -158,7 +158,7 @@ car.say()   // I'm Car
 
 * 구조
 
-![](/Users/bagjeongtae/Desktop/design pattern/이미지/DesignPattern/create/Prototype-Pattern.jpeg)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/create/Prototype-Pattern.jpeg?raw=true)
 
 * 예시(json)
 
@@ -234,7 +234,7 @@ console.log(cloneCar2.noOfWheels) // 14
 
 * 구조
 
-![](/Users/bagjeongtae/Desktop/design pattern/이미지/DesignPattern/create/Singleton-Pattern.jpeg)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/create/Singleton-Pattern.jpeg?raw=true)
 
 * 예시
 
@@ -357,7 +357,7 @@ Proxy
 
 어댑터 패턴은 서로다른 인터페이스 시스템을 맞추기 위해 어댑터를 추가하여 마치 하나의 시스템인 것 처럼 동작하는 패턴
 
-![](/Users/bagjeongtae/Desktop/design pattern/이미지/DesignPattern/structural/Adapter-Pattern.png)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/structural/Adapter-Pattern.png?raw=true)
 
 Client는 과거에 만들어진 인터페이스 
 
@@ -425,7 +425,7 @@ console.log("New price: " + price);
 
 이 모습은 마치 React나 Vue와 같이 컴포넌트를 관리하는 모습을 가짐
 
-![](/Users/bagjeongtae/Desktop/design pattern/이미지/DesignPattern/structural/Composite-Pattern.jpeg)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/structural/Composite-Pattern.jpeg?raw=true)
 
 * 예시
 
@@ -595,7 +595,7 @@ truck으로 전달된 변수 truck만 setModel()과 setColor() 메소드 수행
 
 * 구조
 
-![](/Users/bagjeongtae/Desktop/design pattern/이미지/DesignPattern/structural/Facade-Pattern.png)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/structural/Facade-Pattern.png?raw=true)
 
 * 예시
 
@@ -655,7 +655,7 @@ console.log(result);
 
 * 구조
 
-![](/Users/bagjeongtae/Desktop/design pattern/이미지/DesignPattern/structural/Proxy-Pattern.png)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/structural/Proxy-Pattern.png?raw=true)
 
 만약 파일을 읽어야 한다면 파일을 직접 읽지 않고 프록시 객체를 통해 접근. 프록시는 반복된 파일 접근에 대해 캐싱 처리 등을 수행할 수 있다. 프록시 패턴을 적용하는 상황은 다음과 같다.
 
@@ -790,7 +790,7 @@ Observer 패턴은 관찰중인 객체(Subject)에 발생하는 이벤트에 대
 
 * 구조
 
-![](/Users/bagjeongtae/Desktop/design pattern/이미지/DesignPattern/structural/Observer-Pattern.jpeg)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/structural/Observer-Pattern.jpeg?raw=true)
 
 * 예시
 
@@ -897,7 +897,7 @@ for (item of iterator) {
 
 * 구조
 
-![](/Users/bagjeongtae/Desktop/design pattern/이미지/DesignPattern/structural/Template-Pattern.png)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/structural/Template-Pattern.png?raw=true)
 
 * 예시
 
@@ -954,7 +954,7 @@ Strategy 패턴은 A, B에 대한 알고리즘 정의후 각 알고리즘을 캡
 
 * 구조
 
-![](/Users/bagjeongtae/Desktop/design pattern/이미지/DesignPattern/structural/Strategy-Pattern.png)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/structural/Strategy-Pattern.png?raw=true)
 
 * 예시
 
