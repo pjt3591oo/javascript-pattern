@@ -1142,7 +1142,7 @@ Displaying Computer.
 
 * 구조
 
-![https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/behavioural/state_pattern_diagram.png?raw=true)
+![](https://raw.githubusercontent.com/pjt3591oo/javascript-pattern/master/resource/behavioural/state_pattern_diagram.png)
 
 * 예시
 
