@@ -710,6 +710,191 @@ proxy.getFlight() // Generating flight List
 
 FlightListApi를 직접 제어하지 않고 Proxy를 통해 제어
 
+
+
+### 7. Flyweight Pattern (경량화 패턴)
+
+경량화 패턴은 Cost(비용)이 높은 자원을 공통으로 사용하는 패턴
+
+캐시를 목적으로 하는 패턴
+
+```
+자원에 대한 비용이란? 
+1. Duplicate Create
+2. Low Frequncy, Hight Cost About Create
+```
+
+* 구조
+
+![flyweight_pattern](/Users/bagjeongtae/Desktop/javascript-pattern/resource/structural/flyweight_pattern.png)
+
+* 예시
+
+```typescript
+class Flyweight{
+  map: {[key: string]: Subject} = {};
+ 
+  getSubject( name: string ): Subject {
+    let subject: Subject = this.map[name];
+
+    if(!subject){
+      subject = new Subject(name);
+      this.map[name] = subject;
+    }
+
+    return subject;
+  }
+}
+
+class Subject{
+  name: string;
+
+  constructor( name: string){
+    this.name = name;
+    console.log("create : " + name);
+  }
+}
+
+const flyweight: Flyweight = new Flyweight();
+
+flyweight.getSubject("a");
+flyweight.getSubject("a"); // 다시 생성하지 않음
+flyweight.getSubject("b");
+flyweight.getSubject("b"); // 다시 생성하지 않음
+
+/*
+실행결과
+
+create : a
+create : b
+*/
+```
+
+
+
+### 8. Bridge Pattern ( 브릿지 패턴 )
+
+ 브릿지 패턴은 기능과 구현을 별도의 클래스로 관리
+
+* 구조
+
+![bridge_Pattern](/Users/bagjeongtae/Desktop/javascript-pattern/resource/structural/bridge_Pattern.png)
+
+```
+Abstraction: 최상위 기능계층, 해당 인스턴스를 통해 구현 메소드 호출
+RefindAbstraction: Abstraction을 이용하여 새로운 계층 생성(상속받아 기능확장)
+
+Implementor: Abstraction 기능 구현을 위해 인터페이스
+ConcreteImplementor: Implementor를 상속받아 실제기능 구현
+```
+
+* 예시
+
+```typescript
+// Implementor: 기능 구현을 위한 인터페이스
+interface HuntingHandler {
+  find(): void;
+  detected(): void;
+  attack(): void;
+}
+
+// ConcreteImplementor: Implementor를 상속받아 기능 구현
+class HuntingMethod1 implements HuntingHandler {
+  find(): void {
+    console.log('find by HuntingMethod1')
+  }
+  detected(): void {
+    console.log('detected by HuntingMethod1')
+  }
+  attack(): void {
+    console.log('attack by HuntingMethod1')
+  }
+}
+
+class HuntingMethod2 implements HuntingHandler {
+  find(): void {
+    console.log('find by HuntingMethod2')
+  }
+  detected(): void {
+    console.log('detected by HuntingMethod2')
+  }
+  attack(): void {
+    console.log('attack by HuntingMethod2')
+  }
+}
+
+// Abstractor: 기능의 최상위 객체
+class Animal {
+  hunting: HuntingHandler;
+
+  constructor(hunting: HuntingHandler) {
+    this.hunting = hunting
+  }
+
+  find() {
+    this.hunting.find();
+  }
+  detected() {
+    this.hunting.detected();
+  }
+  attack() {
+    this.hunting.attack();
+  }
+
+  hunt() {
+    this.find();
+    this.detected();
+    this.attack();
+  }
+}
+
+// RefineAbstraction: 최상위 Abstractor 상속받아 실제 클래스 구현
+class Tiger extends Animal {
+  constructor(hunting: HuntingHandler) {
+    super(hunting);
+  }
+
+  hunt() {
+    super.hunt()
+    console.log("사냥끝~~");
+  }
+}
+
+class Bird extends Animal {
+  constructor(hunting: HuntingHandler) {
+    super(hunting);
+  }
+
+  hunt() {
+    super.hunt()
+    console.log("사냥끝~~");
+  }
+}
+
+const tiger: Animal = new Tiger(new HuntingMethod2());
+const bird: Animal = new Bird(new HuntingMethod1());
+
+tiger.hunt();
+console.log("--------------");
+bird.hunt();
+
+/*
+실행결과
+
+find by HuntingMethod2
+detected by HuntingMethod2
+attack by HuntingMethod2
+사냥끝~~
+--------------
+find by HuntingMethod1
+detected by HuntingMethod1
+attack by HuntingMethod1
+사냥끝~~
+*/
+```
+
+Abstract에 맞는 Implement를 주입하여 의존도를 낮추고 다양한 조합을 만들 수 있다
+
 # Behavioral Design Pattern
 
 ```
