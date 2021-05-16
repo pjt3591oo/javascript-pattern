@@ -1251,3 +1251,62 @@ l.showState()
 
 
 
+### 9. Memento Pattern (메멘토 패턴)
+
+메멘토 패턴은 객체의 상태를 이전으로 돌리기 위해 사용
+
+* 구조
+
+![memento_pattern_uml_diagram](https://raw.githubusercontent.com/pjt3591oo/javascript-pattern/master/resource/behavioural/memento_pattern_uml_diagram.jpeg)
+
+* 예시
+
+```typescript
+class Memento {
+  state: String;
+
+  Memento(state: String){
+    this.state = state;
+  }
+
+  getState(): String{
+  return this.state;
+  }	
+}
+
+class Originator {
+  state: String;
+
+  setState(state: String): void {
+    this.state = state;
+  }
+
+  getState(): String {
+    return this.state;
+  }
+
+  saveStateToMemento(): Memento {
+    return new Memento(this.state);
+  }
+
+  getStateFromMemento(memento: Memento): void {
+    this.state = memento.getState();
+  }
+}
+
+// 상태 복원 객체
+class CareTaker {
+  mementos: Memento[] = [];
+
+  constructor() { }
+  
+  add(state: Memento): void {
+    this.mementos.push(state);
+  }
+
+  get(idx: number): Memento {
+    return this.mementos[idx];
+  }
+}
+```
+
