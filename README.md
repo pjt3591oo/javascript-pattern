@@ -1336,3 +1336,103 @@ console.log("저장한 1번째 상태: " + originator.getState());
 */
 ```
 
+
+
+### 10. Mediator Pattern (중재자 패턴)
+
+중재자 패턴은 이벤트를 처리하는 시스템에서 복잡한 송, 수신자들의 관계를 중재자 객체를 통해 정리하는 패턴
+
+복잡한 관계를 단순하게 정리하는 역할
+
+* 구조
+
+![Mediator_Pattern_Architecture](/Users/bagjeongtae/Desktop/javascript-pattern/resource/behavioural/Mediator_Pattern_Architecture.png)
+
+* 예시
+
+```typescript
+interface ISource {
+  setMediator(mediator: Mediator): void;
+  eventOccured(event: String): void;
+}
+class TcpComm implements ISource {
+  mediator: Mediator;
+
+  setMediator(mediator: Mediator) { // 중재자 설정
+    this.mediator = mediator;
+  }
+
+  eventOccured(event: String) { // 이벤트의 전달
+    this.mediator.onEvent("TCP comm", event);
+  }
+}
+class SystemSignal implements ISource {
+  mediator: Mediator;
+
+  setMediator(mediator: Mediator) { // 중재자 설정
+    this.mediator = mediator;
+  }
+
+  eventOccured(event: String) { // 이벤트의 전달
+    this.mediator.onEvent("System", event);
+  }
+}
+
+
+interface IDestination {
+  receiveEvent(from: String, event: String): void;
+}
+class Display implements IDestination {
+  receiveEvent(from: String, event: String) {
+    console.log("Display : from " + from + " event : " + event);
+  }
+}
+class Log implements IDestination {
+  receiveEvent(from: String, event: String) {
+    console.log("Log : from " + from + " event : " + event);
+  }
+}
+
+
+class Mediator {
+  list: IDestination[] = [];
+
+  addDestination(destination: IDestination) {
+    this.list.push(destination);
+  }
+
+  onEvent(from: String, event: String) {
+    this.list.forEach((item: IDestination) => {
+      item.receiveEvent(from, event);
+    })
+  }
+}
+
+const mediator: Mediator = new Mediator();
+
+const tcp: ISource = new TcpComm();
+tcp.setMediator(mediator);
+
+const system: ISource = new SystemSignal();
+system.setMediator(mediator);
+
+mediator.addDestination(new Display());
+mediator.addDestination(new Log());
+
+tcp.eventOccured("connected");
+tcp.eventOccured("disconnected");
+
+system.eventOccured("Process Killed PID: 1932")
+
+/*
+실행결과
+
+Display : from TCP comm event : connected
+Log : from TCP comm event : connected
+Display : from TCP comm event : disconnected
+Log : from TCP comm event : disconnected
+Display : from System event : Process Killed PID: 1932
+Log : from System event : Process Killed PID: 1932
+*/
+```
+
