@@ -1,11 +1,12 @@
-class StateInterface {
-  on () {}
-  off () {}
+interface StateInterface {
+  on(light: Light): void;
+  off(light: Light): void;
 }
 
-class OnState extends StateInterface {
+class OnState implements StateInterface {
+  stateName: string;
+
   constructor() {
-    super()
     this.stateName = 'ON'
   }
   
@@ -24,10 +25,10 @@ class OnState extends StateInterface {
   }
 }
 
-class OffState extends StateInterface{
+class OffState implements StateInterface{
+  stateName: string;
   
   constructor() {
-    super()
     this.stateName = 'OFF'
   }
   
@@ -46,12 +47,16 @@ class OffState extends StateInterface{
   }
 }
 
+type State = OnState | OffState;
+
 let factory = {
   ON: new OnState(),
   OFF: new OffState()
 }
 
 class Light {
+  state: State;
+
   constructor () {
     this.state = factory.ON.getInstance()
   }
@@ -60,7 +65,7 @@ class Light {
     console.log(`current state: ${this.state.stateName} \n`)
   }
 
-  setState (state) {
+  setState (state: State) {
     this.state = state
   }
 
@@ -93,4 +98,3 @@ l.showState()
 
 l.onButtonPress()
 l.showState()
-

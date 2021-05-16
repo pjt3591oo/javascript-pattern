@@ -71,7 +71,7 @@ Builder
 function OldPerson(name, age) {
   this.name = name;
   this.age = age;
-  this.getDetails = function () {
+  this.say = function () {
     console.log(`[OLD] ${this.name} is ${this.age} years old!`);
   }
 }
@@ -88,10 +88,10 @@ class NewPerson {
   constructor(name, age) {
     this.name = name;
     this.age = age;
-    this.say() = function () {
-      console.log(`[NEW] ${this.name} is ${this.age} years old!`);
-    };
   }
+  say() {
+    console.log(`[NEW] ${this.name} is ${this.age} years old!`);
+  };
 }
 
 // 인스턴스 생성
