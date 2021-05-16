@@ -1346,7 +1346,7 @@ console.log("저장한 1번째 상태: " + originator.getState());
 
 * 구조
 
-![Mediator_Pattern_Architecture](/Users/bagjeongtae/Desktop/javascript-pattern/resource/behavioural/Mediator_Pattern_Architecture.png)
+![Mediator_Pattern_Architecture](https://raw.githubusercontent.com/pjt3591oo/javascript-pattern/master/resource/behavioural/Mediator_Pattern_Architecture.png)
 
 * 예시
 
