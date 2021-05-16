@@ -1263,25 +1263,25 @@ l.showState()
 
 ```typescript
 class Memento {
-  state: String;
+  state: string = '';
 
-  Memento(state: String){
+  constructor(state: string){
     this.state = state;
   }
 
-  getState(): String{
+  getState(): string{
   return this.state;
   }	
 }
 
 class Originator {
-  state: String;
+  state: string;
 
-  setState(state: String): void {
+  setState(state: string): void {
     this.state = state;
   }
 
-  getState(): String {
+  getState(): string {
     return this.state;
   }
 
@@ -1308,5 +1308,31 @@ class CareTaker {
     return this.mementos[idx];
   }
 }
+
+const originator: Originator = new Originator();
+const careTaker: CareTaker = new CareTaker();
+
+originator.setState("상태 #1");
+originator.setState("상태 #2");
+careTaker.add(originator.saveStateToMemento());
+originator.setState("상태 #3");
+careTaker.add(originator.saveStateToMemento());
+originator.setState("상태 #4");
+
+console.log("현재상태: " + originator.getState());
+
+originator.getStateFromMemento(careTaker.get(0));
+console.log("저장한 0번째 상태: " + originator.getState());
+
+originator.getStateFromMemento(careTaker.get(1));
+console.log("저장한 1번째 상태: " + originator.getState());
+
+/*
+실행결과
+
+현재상태: State #4
+0번째 상태: State #2
+1번째 상태: State #3
+*/
 ```
 
