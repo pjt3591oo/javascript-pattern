@@ -1013,3 +1013,126 @@ strategy.setStrategy(fedex); // 런타임 환경에서 ups, usps를 전달할 �
 console.log(`Fedex: ${strategy.calculate(p)}`);  // Fedex: FedEx
 ```
 
+
+
+### 7. Visitor pattern (방문자 패턴)
+
+방문자 패턴은 방문자(데이터 구조)와 방문 공간(데이터 연산)을 분리. 방문자는 방문 공간으로부터 행동을 위임받아 수행
+
+새로운 연산을 추가하기 위해 새로운 방문자 추가
+
+*  구조
+
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/behavioural/visitor_pattern_uml_diagram.jpeg)
+
+* 방문공간 정의
+
+```ts
+interface ComputerPart {
+  accept(computerPartVisitor: ComputerPartVisitor): void;
+}
+
+
+class Keyboard implements ComputerPart {
+  accept( computerPartVisitor: ComputerPartVisitor) {
+     computerPartVisitor.visit(this);
+  }
+}
+class Monitor implements ComputerPart {
+  accept( computerPartVisitor: ComputerPartVisitor) {
+     computerPartVisitor.visit(this);
+  }
+}
+class Mouse implements ComputerPart {
+  accept( computerPartVisitor: ComputerPartVisitor) {
+     computerPartVisitor.visit(this);
+  }
+}
+class Computer implements ComputerPart {
+  parts: ComputerPart[];
+  constructor() {
+    this.parts = [new Mouse(), new Monitor(), new Keyboard()]
+  }
+
+  accept(computerPartVisitor: ComputerPartVisitor) {
+    for (let i = 0; i < this.parts.length; i++) {
+      this.parts[i].accept(computerPartVisitor);
+   }
+    computerPartVisitor.visit(this);
+  }
+}
+```
+
+방문자 패턴을 위한 방문 공간(ComputerPart)정의를 완료했다. 해당 공간을 방문할 방문자(ComputerPartVisitor)를 정의해보도록 하자 
+
+방문공간은 accept(방문자) 메소드를 통해 방문자를 받는다
+
+* 방문자 정의
+
+```ts
+interface ComputerPartVisitor {
+	visit(computer: Computer);
+	visit(mouse: Mouse);
+	visit(keyboard: Keyboard);
+	visit(monitor: Monitor);
+}
+
+class ComputerPartDisplayVisitor implements ComputerPartVisitor {
+
+  visit(computer: Computer): void  {
+     console.log("Displaying Computer.");
+  }
+
+  visit(mouse: Mouse): void  {
+     console.log("Displaying Mouse.");
+  }
+
+  visit(keyboard: Keyboard): void  {
+     console.log("Displaying Keyboard.");
+  }
+
+  visit(monitor: Monitor): void  {
+     console.log("Displaying Monitor.");
+  }
+}
+```
+
+이와같이 동일한 메소드 이름과 다른 파라미터를 통해 메소드를 구성하는 방법을 오버로딩이라고 부름
+
+JavaScript, TypeScript는 오버로딩 지원하지 않음
+
+다음과 같이 대체하여 구현
+
+```typescript
+class ComputerPartDisplayVisitor implements ComputerPartVisitor {
+  visit(monitor: Computer | Mouse | Keyboard | Monitor): void {
+    if (monitor instanceof Computer) {
+      console.log("Displaying Computer.");
+    } else if (monitor instanceof Mouse) {
+      console.log("Displaying Mouse.");
+    } else if (monitor instanceof Keyboard) {
+      console.log("Displaying Keyboard.");
+    } else if (monitor instanceof Monitor) {
+      console.log("Displaying Monitor.");
+    }
+  }
+}
+```
+
+```typescript
+let computer: ComputerPart = new Computer();
+computer.accept(new ComputerPartDisplayVisitor());
+
+/*
+실행결과
+Displaying Mouse.
+Displaying Monitor.
+Displaying Keyboard.
+Displaying Computer.
+*/
+```
+
+
+
+
+
