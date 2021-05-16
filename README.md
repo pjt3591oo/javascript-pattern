@@ -1023,7 +1023,7 @@ console.log(`Fedex: ${strategy.calculate(p)}`);  // Fedex: FedEx
 
 *  구조
 
-![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/behavioural/visitor_pattern_uml_diagram.jpeg)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/behavioural/visitor_pattern_uml_diagram.jpeg?raw=true)
 
 * 방문공간 정의
 
@@ -1133,6 +1133,121 @@ Displaying Computer.
 ```
 
 
+
+8. State Pattern (상태패턴)
+
+상태패턴은 상태에 따라 다른 동작을 해야하는 경우 상태 객체를 통해 행동함
+
+상태에 따른 액션을 추가할 때 상태 객체를 추가하여 메인 객체가 해당 상태 객체를 가지고 있는다.
+
+* 구조
+
+![https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/behavioural/state_pattern_diagram.png?raw=true)
+
+* 예시
+
+```typescript
+interface StateInterface {
+  on(light: Light): void;
+  off(light: Light): void;
+}
+
+class OnState implements StateInterface {
+  stateName: string;
+
+  constructor() {
+    this.stateName = 'ON'
+  }
+  
+  getInstance () { 
+    return factory.ON
+  }
+
+  on (light) {
+    light.setState(factory.ON.getInstance())
+    console.log('... 동작하지 않음')
+  }
+
+  off (light) {
+    light.setState(factory.OFF.getInstance())
+    console.log('전원 off')
+  }
+}
+
+class OffState implements StateInterface{
+  stateName: string;
+  
+  constructor() {
+    this.stateName = 'OFF'
+  }
+  
+  getInstance () {
+    return factory.OFF
+  }
+
+  on (light) {
+    light.setState(factory.ON.getInstance())
+    console.log('전원 on')
+  }
+
+  off (light) {
+    light.setState(factory.OFF.getInstance())
+    console.log('... 동작하지 않음')
+  }
+}
+
+type State = OnState | OffState;
+
+let factory = {
+  ON: new OnState(),
+  OFF: new OffState()
+}
+
+class Light {
+  state: State;
+
+  constructor () {
+    this.state = factory.ON.getInstance()
+  }
+
+  showState() {
+    console.log(`current state: ${this.state.stateName} \n`)
+  }
+
+  setState (state: State) {
+    this.state = state
+  }
+
+  onButtonPress () {
+    this.state.on(this)
+  }
+
+  offButtonPress () {
+    this.state.off(this)
+  }
+}
+
+let l = new Light()
+l.showState()
+
+l.onButtonPress()
+l.showState()
+
+l.offButtonPress()
+l.showState()
+
+l.offButtonPress()
+l.showState()
+
+l.onButtonPress()
+l.showState()
+
+l.onButtonPress()
+l.showState()
+
+l.onButtonPress()
+l.showState()
+```
 
 
 
