@@ -345,12 +345,16 @@ let postRequest = new RequestBuilder()
 # Structural Design Pattern
 
 ```
-Adapter
-Composite
-Module
-Decorator
-Facade
-Proxy
+Chain of Responsibility
+Command
+Observer
+Iterator
+Template
+Strategy
+visitor
+state
+memento
+mediator
 ```
 
 ### 1. Adapter Pattern (어댑터 패턴)
@@ -726,7 +730,7 @@ FlightListApi를 직접 제어하지 않고 Proxy를 통해 제어
 
 * 구조
 
-![flyweight_pattern](/Users/bagjeongtae/Desktop/javascript-pattern/resource/structural/flyweight_pattern.png)
+![flyweight_pattern](https://raw.githubusercontent.com/pjt3591oo/javascript-pattern/master/resource/structural/flyweight_pattern.png)
 
 * 예시
 
@@ -778,7 +782,7 @@ create : b
 
 * 구조
 
-![bridge_Pattern](/Users/bagjeongtae/Desktop/javascript-pattern/resource/structural/bridge_Pattern.png)
+![bridge_Pattern](https://raw.githubusercontent.com/pjt3591oo/javascript-pattern/master/resource/structural/bridge_Pattern.png)
 
 ```
 Abstraction: 최상위 기능계층, 해당 인스턴스를 통해 구현 메소드 호출
@@ -975,7 +979,7 @@ Observer 패턴은 관찰중인 객체(Subject)에 발생하는 이벤트에 대
 
 * 구조
 
-![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/structural/Observer-Pattern.jpeg?raw=true)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/behavioural/Observer-Pattern.jpeg?raw=true)
 
 * 예시
 
@@ -1082,7 +1086,7 @@ for (item of iterator) {
 
 * 구조
 
-![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/structural/Template-Pattern.png?raw=true)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/behavioural/Template-Pattern.png?raw=true)
 
 * 예시
 
@@ -1139,7 +1143,7 @@ Strategy 패턴은 A, B에 대한 알고리즘 정의후 각 알고리즘을 캡
 
 * 구조
 
-![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/structural/Strategy-Pattern.png?raw=true)
+![](https://github.com/pjt3591oo/javascript-pattern/blob/master/resource/behavioural/Strategy-Pattern.png?raw=true)
 
 * 예시
 
